@@ -30,7 +30,7 @@ user presents live to an audience of mixed technical skill.
 - **`databricks clusters create` exits 0 and prints nothing on that failure.** Only
   the raw REST call surfaces the error. Do not trust its exit code.
 - `%scala`, `%r`, `%fs`, `%conda` **cannot work here**. Parked in
-  `notebooks/not_supported/` with reasons. Do not try to "fix" them.
+  `course-demo/01_magic_commands/not_supported/` with reasons. Do not try to "fix" them.
 - DBFS root is disabled. Use **UC Volumes** (`/Volumes/<cat>/<schema>/<vol>/`).
 - The `databricks-mcp` MCP server fails to connect. Use the CLI instead.
 
@@ -49,6 +49,17 @@ databricks jobs submit --no-wait --profile demo-training --json '{
 Then poll `databricks jobs get-run <RUN_ID>` until `TERMINATED`, and fetch output
 with `databricks jobs get-run-output <TASK_RUN_ID>` — **the task run id from
 `.tasks[0].run_id`, not the parent run id**, or it errors.
+
+## Layout
+
+```
+course-demo/01_magic_commands/   topic 1 (+ not_supported/)
+course-demo/02_unity_catalog/    topic 2
+```
+
+Cross-notebook references must stay **relative** (`./child`, `./t_core`). That is
+what lets folders be moved without breaking anything. Never hardcode a
+`/Workspace/...` path inside a notebook.
 
 ## Two-place rule
 

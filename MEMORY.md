@@ -13,8 +13,8 @@ explaining what the code does, why it exists, and what benefit it delivers.**
 
 | # | Topic | Status | Where |
 |---|---|---|---|
-| 1 | Notebook magic commands | **DONE — verified 6/6 passing** | `notebooks/magic_commands/` |
-| 2 | Unity Catalog metastore | **In progress** | `notebooks/unity_catalog/` |
+| 1 | Notebook magic commands | **DONE — verified 6/6 passing** | `course-demo/01_magic_commands/` |
+| 2 | Unity Catalog metastore | **In progress** | `course-demo/02_unity_catalog/` |
 | 3+ | Not yet chosen | — | — |
 
 ## Topic 1 — magic commands (complete, do not modify without asking)
@@ -57,10 +57,27 @@ the real auto-created `__databricks_managed_storage_credential` and
 `__databricks_managed_storage_location`** (which return genuine output) and shows
 the `CREATE STORAGE CREDENTIAL` / `CREATE EXTERNAL LOCATION` syntax as documented
 reference cells in **AWS `s3://` form**, not the Azure `abfss://` form used by the
-online course the user was following. Do not attempt the IAM setup unless asked.
+online course the user was following. **The user has explicitly asked to revisit this** - see `docs/BACKLOG.md` item 1
+for the full step-by-step plan (bucket, IAM role, VALIDATE, external location,
+mapping, grants). Do not start it unprompted, but do not treat it as closed.
 
 Also note: `LIST '<path>'` is the SQL equivalent of `%fs ls` and works on
 serverless — worth preferring in all SQL material.
+
+## Repo layout (restructured 2026-09-09)
+
+```
+course-demo/
+  01_magic_commands/      topic 1  (+ not_supported/)
+  02_unity_catalog/       topic 2
+```
+
+Mirrored in the workspace at
+`/Workspace/Users/selvarajaa13@gmail.com/course-demo/`.
+The move was safe because every cross-notebook reference is relative (`./child`,
+`./t_core`) and there are no hardcoded `/Workspace/` paths. Keep it that way -
+relative refs are what make the folders movable. All notebooks re-verified passing
+after the move.
 
 ## Environment
 
@@ -70,12 +87,12 @@ serverless — worth preferring in all SQL material.
 
 ## Open items
 
-- **Rotate the PAT.** `dapicea78...` was pasted into a chat transcript and is
-  compromised. The user chose to defer this until after the demo.
-- Topic 3 not yet chosen — ask the user.
+See **`docs/BACKLOG.md`** — it holds the deferred work with the reasoning and the
+plan for each. Headlines: revisit external locations / AWS IAM (the user asked for
+this), rotate the compromised PAT, choose topic 3.
 
 ## Useful docs in this repo
 
 - `CLAUDE.md` — rules and environment gotchas
 - `docs/magic-commands-test-report.md` — full topic-1 test results and findings
-- `notebooks/not_supported/README.md` — what fails here and why
+- `course-demo/01_magic_commands/not_supported/README.md` — what fails here and why

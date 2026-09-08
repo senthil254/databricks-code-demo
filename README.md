@@ -9,10 +9,11 @@ everything here lives in the `demo_training` catalog and nothing touches `lakebr
 
 ## Topics
 
-1. **Notebook magic commands** — `notebooks/magic_commands/`
-2. **Unity Catalog & the metastore** — `notebooks/unity_catalog/`
+1. **Notebook magic commands** — `course-demo/01_magic_commands/`
+2. **Unity Catalog & the metastore** — `course-demo/02_unity_catalog/`
 
-See `MEMORY.md` for current state and `CLAUDE.md` for the rules.
+See `MEMORY.md` for current state, `CLAUDE.md` for the rules, and
+`docs/BACKLOG.md` for deferred work.
 
 ## Layout
 
@@ -20,12 +21,12 @@ See `MEMORY.md` for current state and `CLAUDE.md` for the rules.
 |---|---|
 | `sql/00_setup_demo_training.sql` | Creates catalog, schema, volume, 3 demo tables, loads 900 rows |
 | `sql/99_teardown.sql` | Drops **only** `demo_training` |
-| `notebooks/magic_commands/00_demo_walkthrough.py` | Runs the six lesson notebooks in order, prints a scoreboard |
-| `notebooks/magic_commands/01_all_in_one.py` | **Best for presenting** — all six lessons inline in one notebook, run top to bottom |
-| `notebooks/magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
-| `notebooks/unity_catalog/01_unity_catalog_metastore.sql` | **Topic 2** — Unity Catalog & metastore, pure SQL, teardown-first |
-| `notebooks/unity_catalog/02_external_locations.sql` | **Topic 2b** — storage credentials & external locations (AWS) |
-| `notebooks/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
+| `course-demo/01_magic_commands/00_demo_walkthrough.py` | Runs the six lesson notebooks in order, prints a scoreboard |
+| `course-demo/01_magic_commands/01_all_in_one.py` | **Best for presenting** — all six lessons inline in one notebook, run top to bottom |
+| `course-demo/01_magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
+| `course-demo/02_unity_catalog/01_unity_catalog_metastore.sql` | **Topic 2** — Unity Catalog & metastore, pure SQL, teardown-first |
+| `course-demo/02_unity_catalog/02_external_locations.sql` | **Topic 2b** — storage credentials & external locations (AWS) |
+| `course-demo/01_magic_commands/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
 | `docs/magic-commands-test-report.md` | Results of the serverless test run |
 
 ## Running the tests
@@ -34,7 +35,7 @@ Each notebook is isolated so one failure doesn't mask the rest.
 
 ```bash
 databricks workspace import /Workspace/Users/<you>/magic_cmds_test/t_core \
-  --file notebooks/magic_commands/t_core.py --format SOURCE --language PYTHON --overwrite \
+  --file course-demo/01_magic_commands/t_core.py --format SOURCE --language PYTHON --overwrite \
   --profile demo-training
 
 databricks jobs submit --json '{

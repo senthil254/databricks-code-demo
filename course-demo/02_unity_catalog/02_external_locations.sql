@@ -137,10 +137,31 @@ SHOW GRANTS ON EXTERNAL LOCATION `__databricks_managed_storage_location`;
 -- MAGIC SQL has a `LIST` command for browsing a governed path. **This is the SQL
 -- MAGIC equivalent of `%fs ls`** — and it is the one to teach, because `%fs` does not work
 -- MAGIC on serverless compute at all (it is implemented in Scala; see
--- MAGIC `notebooks/not_supported/`).
+-- MAGIC `course-demo/01_magic_commands/not_supported/`).
 -- MAGIC
 -- MAGIC Below we list the volume created in notebook `01`. Access is checked against
 -- MAGIC Unity Catalog, exactly as it would be for a table.
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC First make sure the volume exists. Notebook `01` creates it, but `01` also drops
+-- MAGIC the catalog at its start — so if the two notebooks are run out of order, or `01`
+-- MAGIC is re-run mid-session, the volume may be gone. These `IF NOT EXISTS` statements
+-- MAGIC make this notebook **safe to run on its own, in any order**.
+-- MAGIC
+-- MAGIC Writing setup defensively like this is a habit worth teaching: a notebook that
+-- MAGIC only works when run in exactly one sequence is a notebook that will fail in front
+-- MAGIC of an audience.
+
+-- COMMAND ----------
+
+CREATE CATALOG IF NOT EXISTS demo_uc
+  COMMENT 'Training catalog for the Unity Catalog lesson.';
+CREATE SCHEMA  IF NOT EXISTS demo_uc.governance
+  COMMENT 'Objects used to demonstrate Unity Catalog governance features.';
+CREATE VOLUME  IF NOT EXISTS demo_uc.governance.landing_zone
+  COMMENT 'Governed folder for incoming files.';
 
 -- COMMAND ----------
 
