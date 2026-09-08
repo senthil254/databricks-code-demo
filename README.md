@@ -13,7 +13,8 @@ everything here lives in the `demo_training` catalog and nothing touches `lakebr
 |---|---|
 | `sql/00_setup_demo_training.sql` | Creates catalog, schema, volume, 3 demo tables, loads 900 rows |
 | `sql/99_teardown.sql` | Drops **only** `demo_training` |
-| `notebooks/magic_commands/` | One notebook per magic command under test |
+| `notebooks/magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
+| `notebooks/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
 | `docs/magic-commands-test-report.md` | Results of the serverless test run |
 
 ## Running the tests
