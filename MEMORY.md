@@ -17,7 +17,8 @@ explaining what the code does, why it exists, and what benefit it delivers.**
 | 2 | Unity Catalog metastore | **In progress** | `course-demo/02_unity_catalog/` |
 | 3 | Creating & managing Delta tables | **DONE — verified running clean** | `course-demo/03_delta_tables/` |
 | 4 | Time travel — querying historical versions | **DONE — verified running clean** | `course-demo/04_time_travel/` |
-| 5+ | Not yet chosen | — | — |
+| 5 | Restore & rollback strategies | **DONE — verified running clean** | `course-demo/05_restore_rollback/` |
+| 6+ | Not yet chosen | — | — |
 
 ## Topic 1 — magic commands (complete, do not modify without asking)
 
@@ -74,6 +75,7 @@ course-demo/
   02_unity_catalog/       topic 2
   03_delta_tables/        topic 3
   04_time_travel/         topic 4
+  05_restore_rollback/    topic 5
 ```
 
 Mirrored in the workspace at
@@ -113,6 +115,31 @@ rule: **timestamps to explore, version numbers to reproduce.**
 
 CDF must be enabled at CREATE time (`delta.enableChangeDataFeed = true`); it
 cannot backfill changes made before it was switched on.
+
+## Topic 5 — Restore & rollback (complete)
+
+`course-demo/05_restore_rollback/01_restore_and_rollback_strategies.sql` — pure
+SQL, teardown-first, own catalog **`demo_rollback`** (schema `finance`).
+
+Deliberately scoped **away from topic 4**: topic 4 is about *reading* history,
+topic 5 is about *choosing a recovery*. Five strategies, each with when-to-use
+and its main risk: full `RESTORE`, surgical `MERGE` from an old version,
+`UNDROP TABLE`, clone checkpoints (shallow vs deep), and blue/green swap via
+`RENAME`. Plus what destroys rollback ability (VACUUM/retention) and rehearsing
+a recovery on a clone first.
+
+All five were probed against the live workspace before writing — `UNDROP TABLE`,
+`SHALLOW CLONE`, `ALTER TABLE RENAME` and merge-from-old-version all work here.
+
+## Full audit — 2026-09-09
+
+Every notebook in the course was run and confirmed error-free: **12/12 passed**
+(6 magic-command lessons, all_in_one, walkthrough, both UC notebooks, delta,
+time travel). Topic 5 verified separately. Re-run this audit after any edit.
+
+**Ordering note for audits:** the two `02_unity_catalog` notebooks must run
+**sequentially** — `01` drops `demo_uc`, which `02` reads. Everything else uses
+its own catalog and is parallel-safe.
 
 ## Environment
 
