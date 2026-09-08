@@ -70,7 +70,7 @@ is the same IAM work as item 1. See `docs/magic-commands-test-report.md`.
 
 ---
 
-## 4. Topic 4 — not yet chosen
+## 4. Topic 5 — not yet chosen
 
-Topics 1-3 are done (magic commands, Unity Catalog, Delta tables). Ask the user
-what comes next.
+Topics 1-4 are done (magic commands, Unity Catalog, Delta tables, time travel).
+Ask the user what comes next.

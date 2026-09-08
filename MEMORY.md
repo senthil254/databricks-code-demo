@@ -16,7 +16,8 @@ explaining what the code does, why it exists, and what benefit it delivers.**
 | 1 | Notebook magic commands | **DONE — verified 6/6 passing** | `course-demo/01_magic_commands/` |
 | 2 | Unity Catalog metastore | **In progress** | `course-demo/02_unity_catalog/` |
 | 3 | Creating & managing Delta tables | **DONE — verified running clean** | `course-demo/03_delta_tables/` |
-| 4+ | Not yet chosen | — | — |
+| 4 | Time travel — querying historical versions | **DONE — verified running clean** | `course-demo/04_time_travel/` |
+| 5+ | Not yet chosen | — | — |
 
 ## Topic 1 — magic commands (complete, do not modify without asking)
 
@@ -72,6 +73,7 @@ course-demo/
   01_magic_commands/      topic 1  (+ not_supported/)
   02_unity_catalog/       topic 2
   03_delta_tables/        topic 3
+  04_time_travel/         topic 4
 ```
 
 Mirrored in the workspace at
@@ -92,6 +94,25 @@ constraint, OPTIMIZE/ZORDER, VACUUM DRY RUN, CTAS and DEEP CLONE.
 **Catalog-per-topic pattern** — each topic drops and recreates only its own
 catalog, so a live teardown can never damage another topic:
 topic 1 `demo_training` · topic 2 `demo_uc` · topic 3 `demo_delta`.
+
+## Topic 4 — Time travel (complete)
+
+`course-demo/04_time_travel/01_query_historical_versions.sql` — pure SQL,
+teardown-first, own catalog **`demo_timetravel`** (schema `inventory`). Deep dive
+beyond topic 3's brief coverage: DESCRIBE HISTORY as a readable audit log,
+VERSION AS OF, the `@v1` shorthand, version diffing with FULL JOIN and EXCEPT,
+reproducing an old report, **Change Data Feed** (`table_changes()`, pre/post
+images), retention properties, and RESTORE (including restoring forward again).
+
+**Gotcha discovered the hard way — do not "fix" this:** `TIMESTAMP AS OF` is
+shown as documentation, not executed. Delta rejects a timestamp before the first
+commit *or* after the latest commit, so a table created seconds ago has **no
+valid literal timestamp**. Variables and subqueries are also rejected — the
+clause needs a constant. The notebook explains both error modes and draws the
+rule: **timestamps to explore, version numbers to reproduce.**
+
+CDF must be enabled at CREATE time (`delta.enableChangeDataFeed = true`); it
+cannot backfill changes made before it was switched on.
 
 ## Environment
 
