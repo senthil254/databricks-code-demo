@@ -15,7 +15,8 @@ explaining what the code does, why it exists, and what benefit it delivers.**
 |---|---|---|---|
 | 1 | Notebook magic commands | **DONE — verified 6/6 passing** | `course-demo/01_magic_commands/` |
 | 2 | Unity Catalog metastore | **In progress** | `course-demo/02_unity_catalog/` |
-| 3+ | Not yet chosen | — | — |
+| 3 | Creating & managing Delta tables | **DONE — verified running clean** | `course-demo/03_delta_tables/` |
+| 4+ | Not yet chosen | — | — |
 
 ## Topic 1 — magic commands (complete, do not modify without asking)
 
@@ -70,6 +71,7 @@ serverless — worth preferring in all SQL material.
 course-demo/
   01_magic_commands/      topic 1  (+ not_supported/)
   02_unity_catalog/       topic 2
+  03_delta_tables/        topic 3
 ```
 
 Mirrored in the workspace at
@@ -78,6 +80,18 @@ The move was safe because every cross-notebook reference is relative (`./child`,
 `./t_core`) and there are no hardcoded `/Workspace/` paths. Keep it that way -
 relative refs are what make the folders movable. All notebooks re-verified passing
 after the move.
+
+## Topic 3 — Delta tables (complete)
+
+`course-demo/03_delta_tables/01_creating_managing_delta_tables.sql` — pure SQL,
+teardown-first, own catalog **`demo_delta`** (schema `sales`). Covers CREATE with
+identity columns and NOT NULL, INSERT, DESCRIBE DETAIL, UPDATE, DELETE, MERGE,
+DESCRIBE HISTORY, time travel + version diff, RESTORE, ALTER ADD COLUMN, CHECK
+constraint, OPTIMIZE/ZORDER, VACUUM DRY RUN, CTAS and DEEP CLONE.
+
+**Catalog-per-topic pattern** — each topic drops and recreates only its own
+catalog, so a live teardown can never damage another topic:
+topic 1 `demo_training` · topic 2 `demo_uc` · topic 3 `demo_delta`.
 
 ## Environment
 

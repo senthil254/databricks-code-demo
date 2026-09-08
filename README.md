@@ -11,6 +11,7 @@ everything here lives in the `demo_training` catalog and nothing touches `lakebr
 
 1. **Notebook magic commands** — `course-demo/01_magic_commands/`
 2. **Unity Catalog & the metastore** — `course-demo/02_unity_catalog/`
+3. **Creating & managing Delta tables** — `course-demo/03_delta_tables/`
 
 See `MEMORY.md` for current state, `CLAUDE.md` for the rules, and
 `docs/BACKLOG.md` for deferred work.
@@ -26,6 +27,7 @@ See `MEMORY.md` for current state, `CLAUDE.md` for the rules, and
 | `course-demo/01_magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
 | `course-demo/02_unity_catalog/01_unity_catalog_metastore.sql` | **Topic 2** — Unity Catalog & metastore, pure SQL, teardown-first |
 | `course-demo/02_unity_catalog/02_external_locations.sql` | **Topic 2b** — storage credentials & external locations (AWS) |
+| `course-demo/03_delta_tables/01_creating_managing_delta_tables.sql` | **Topic 3** — Delta: MERGE, time travel, RESTORE, OPTIMIZE, CLONE |
 | `course-demo/01_magic_commands/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
 | `docs/magic-commands-test-report.md` | Results of the serverless test run |
 
