@@ -22,8 +22,8 @@
 | `dbutils.fs` on **UC Volume** | PASS | mkdirs / put / cp / ls / rm |
 | `dbutils.fs.ls("/")` | PASS | 3 entries |
 | `%fs` | **FAIL** | Blocked as Scala — see below |
-| `%scala` | **FAIL** | Not supported on serverless |
-| `%r` | **FAIL** | Workspace policy: SQL + Python only |
+| `%scala` | **FAIL** | Not supported on serverless; no classic cluster possible here |
+| `%r` | **FAIL** | Workspace policy: SQL + Python only; no classic cluster possible here |
 | `%conda` | **FAIL** (expected) | Removed from modern DBR; use `%pip` |
 | magic not on first line | **FAIL** (expected) | `SyntaxError` — correct behaviour |
 | `dbutils.fs` on **DBFS root** | **FAIL** | `DBFS_DISABLED` — public DBFS root off |
@@ -42,9 +42,21 @@ the command itself is language-neutral. Confirmed by isolating `%fs ls /` in its
 `[DBFS_DISABLED] Public DBFS root is disabled`. All file work must go through UC Volumes
 (`/Volumes/<cat>/<schema>/<vol>/...`), which tested clean.
 
-**3. `%scala` and `%r` will not run here.** Scala is a serverless platform limitation;
-R is blocked by a workspace policy allowing only SQL and Python. Both need a classic
-interactive cluster — and this workspace currently has **zero clusters**.
+**3. `%scala`, `%r` and `%fs` are permanently untestable on this workspace.** They require a
+classic interactive cluster, and one cannot be created here:
+
+> `Error: Current organization 7474644516855972 does not have any associated worker environments`
+
+This workspace is **serverless-only** — there is no classic compute plane attached to the
+account. Cluster creation hangs for ~2 minutes and then fails; note the Databricks CLI
+swallows this error entirely (`clusters create` exits 0 with no output), so it is only
+visible via the raw REST call:
+
+```bash
+databricks api post /api/2.1/clusters/create --profile demo-training --json '{...}'
+```
+
+To cover these three magics you need a workspace with classic compute enabled.
 
 **4. `get-run-output` needs the task run id,** not the parent run id, or it errors with
 "Retrieving the output of runs with multiple tasks is not supported".
