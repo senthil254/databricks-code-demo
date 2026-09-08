@@ -24,6 +24,7 @@ See `MEMORY.md` for current state and `CLAUDE.md` for the rules.
 | `notebooks/magic_commands/01_all_in_one.py` | **Best for presenting** — all six lessons inline in one notebook, run top to bottom |
 | `notebooks/magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
 | `notebooks/unity_catalog/01_unity_catalog_metastore.sql` | **Topic 2** — Unity Catalog & metastore, pure SQL, teardown-first |
+| `notebooks/unity_catalog/02_external_locations.sql` | **Topic 2b** — storage credentials & external locations (AWS) |
 | `notebooks/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
 | `docs/magic-commands-test-report.md` | Results of the serverless test run |
 

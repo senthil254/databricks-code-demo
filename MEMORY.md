@@ -45,6 +45,23 @@ User's requirements, verbatim in intent:
 Uses catalog **`demo_uc`** — deliberately NOT `demo_training`, so the live teardown
 cannot destroy topic 1's data.
 
+Two notebooks, both verified running clean:
+- `01_unity_catalog_metastore.sql` — metastore, catalog/schema/table/volume,
+  information_schema, tags, views, GRANT/REVOKE, ownership, time travel, lineage
+- `02_external_locations.sql` — storage credentials & external locations
+
+**On `02`:** creating a *new* storage credential needs an AWS IAM role with a
+Databricks trust policy (~30-45 min of AWS console work, admin rights). The user
+has AWS, not Azure, and did not want to spend the time. So the notebook **inspects
+the real auto-created `__databricks_managed_storage_credential` and
+`__databricks_managed_storage_location`** (which return genuine output) and shows
+the `CREATE STORAGE CREDENTIAL` / `CREATE EXTERNAL LOCATION` syntax as documented
+reference cells in **AWS `s3://` form**, not the Azure `abfss://` form used by the
+online course the user was following. Do not attempt the IAM setup unless asked.
+
+Also note: `LIST '<path>'` is the SQL equivalent of `%fs ls` and works on
+serverless — worth preferring in all SQL material.
+
 ## Environment
 
 - Profile `demo-training` → `https://dbc-73857455-1589.cloud.databricks.com`
