@@ -7,6 +7,13 @@ everything here lives in the `demo_training` catalog and nothing touches `lakebr
 - CLI profile: `demo-training`
 - Catalog / schema: `demo_training.magic_cmds` (+ volume `demo_vol`)
 
+## Topics
+
+1. **Notebook magic commands** — `notebooks/magic_commands/`
+2. **Unity Catalog & the metastore** — `notebooks/unity_catalog/`
+
+See `MEMORY.md` for current state and `CLAUDE.md` for the rules.
+
 ## Layout
 
 | Path | What |
@@ -16,6 +23,7 @@ everything here lives in the `demo_training` catalog and nothing touches `lakebr
 | `notebooks/magic_commands/00_demo_walkthrough.py` | Runs the six lesson notebooks in order, prints a scoreboard |
 | `notebooks/magic_commands/01_all_in_one.py` | **Best for presenting** — all six lessons inline in one notebook, run top to bottom |
 | `notebooks/magic_commands/` | **Demo-ready** — every notebook here passes on serverless |
+| `notebooks/unity_catalog/01_unity_catalog_metastore.sql` | **Topic 2** — Unity Catalog & metastore, pure SQL, teardown-first |
 | `notebooks/not_supported/` | Parked failures (`%scala`, `%r`, `%fs`, `%conda`) — not for the demo |
 | `docs/magic-commands-test-report.md` | Results of the serverless test run |
 
